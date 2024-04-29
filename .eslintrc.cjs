@@ -2,13 +2,113 @@
 require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
-  root: true,
-  'extends': [
-    'plugin:vue/vue3-essential',
-    'eslint:recommended',
-    '@vue/eslint-config-typescript'
-  ],
-  parserOptions: {
-    ecmaVersion: 'latest'
-  }
+	parser: 'vue-eslint-parser',
+	parserOptions: {
+		ecmaVersion: 'latest',
+		parser: '@typescript-eslint/parser',
+		sourceType: 'module',
+	},
+	env: {
+		browser: true,
+		es6: true,
+	},
+	ignorePatterns: ['vite.config.ts'],
+	plugins: [
+		'vue',
+		'compat',
+		'import',
+	],
+	extends: [
+		'@vue/eslint-config-typescript',
+		'eslint:recommended',
+		'plugin:compat/recommended',
+		'plugin:import/errors',
+		'plugin:import/warnings',
+		'plugin:import/typescript',
+		'plugin:vue/base',
+		'plugin:vue/vue3-recommended',
+	],
+	rules: {
+		'indent': 'off',
+		'@typescript-eslint/indent': ['error', 'tab', {
+			SwitchCase: 1,
+		}],
+		'quotes': ['error', 'single'],
+		'comma-dangle': ['error', 'always-multiline'],
+		'arrow-parens': ['error', 'always'],
+		'no-multiple-empty-lines': ['error', {
+			max: 1,
+		}],
+		'curly': 'error',
+		'default-case-last': 'error',
+		'no-extra-semi': 'off',
+		'object-curly-newline': ['error', {
+			multiline: true,
+			minProperties: 2,
+			consistent: true,
+		}],
+		'object-property-newline': 'error',
+		'object-curly-spacing': ['error', 'always'],
+		'eqeqeq': 'warn',
+
+		'@typescript-eslint/no-extra-semi': 'error',
+		'@typescript-eslint/no-non-null-assertion': 'warn',
+		'@typescript-eslint/no-empty-interface': 'error',
+		'@typescript-eslint/no-inferrable-types': 'error',
+		'@typescript-eslint/no-explicit-any': 'warn',
+		'@typescript-eslint/explicit-member-accessibility': 'off',
+		'@typescript-eslint/explicit-function-return-type': 'off',
+		'@typescript-eslint/ban-ts-ignore': 'off',
+		'@typescript-eslint/prefer-ts-expect-error': 'error',
+		'@typescript-eslint/ban-ts-comment': 'warn',
+		'@typescript-eslint/explicit-module-boundary-types': 'off',
+		'@typescript-eslint/semi': ['error', 'never'],
+		'@typescript-eslint/member-delimiter-style': ['error', {
+			multiline: {
+				delimiter: 'none',
+			},
+		}],
+
+		'vue/block-order': ['error', {
+			order: ['script', 'template', 'style'],
+		}],
+		'vue/block-tag-newline': 'error',
+		'vue/component-api-style': ['error', ['script-setup', 'composition']],
+		'vue/match-component-file-name': ['error', {
+			shouldMatchCase: false,
+			extensions: ['vue'],
+		}],
+		'vue/no-ref-object-reactivity-loss': 'error',
+		'vue/no-root-v-if': 'error',
+		'vue/no-template-target-blank': 'error',
+		'vue/no-unused-emit-declarations': 'warn',
+		'vue/no-unused-refs': 'warn',
+		'vue/padding-line-between-blocks': 'error',
+		'vue/require-typed-object-prop': 'warn',
+		'vue/require-typed-ref': 'error',
+		'vue/html-indent': ['error', 'tab'],
+
+		'import/order': ['error', {
+			'newlines-between': 'always',
+			'groups': [
+				'builtin',
+				'external',
+				'parent',
+				'sibling',
+				'index',
+			],
+			'pathGroupsExcludedImportTypes': [],
+			'pathGroups': [
+				{
+					'pattern': '~/**',
+					'patternOptions': {
+						'dot': true,
+					},
+					'group': 'index',
+					'position': 'after',
+				},
+			],
+		}],
+		'import/no-default-export': 'warn',
+	},
 }
