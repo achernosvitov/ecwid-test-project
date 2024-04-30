@@ -50,7 +50,37 @@ module.exports = {
 		'object-property-newline': 'error',
 		'object-curly-spacing': ['error', 'always'],
 		'eqeqeq': 'warn',
+		'no-unused-vars': 'off',
+		'padding-line-between-statements': ['error',
+			{
+				blankLine: 'always',
+				prev: 'block-like',
+				next: '*',
+			},
+			{
+				blankLine: 'always',
+				prev: '*',
+				next: 'block-like',
+			},
+			{
+				blankLine: 'always',
+				prev: ['const', 'let', 'var'],
+				next: '*',
+			},
+			{
+				blankLine: 'any',
+				prev: ['const', 'let', 'var'],
+				next: ['const', 'let', 'var'],
+			},
+			{
+				blankLine: 'always',
+				prev: '*',
+				next: 'return', 
+			},
+		],
+		'eol-last': ['error', 'always'],
 
+		'@typescript-eslint/no-unused-vars': 'warn',
 		'@typescript-eslint/no-extra-semi': 'error',
 		'@typescript-eslint/no-non-null-assertion': 'warn',
 		'@typescript-eslint/no-empty-interface': 'error',
@@ -68,6 +98,7 @@ module.exports = {
 				delimiter: 'none',
 			},
 		}],
+		'@typescript-eslint/consistent-type-imports': 'error',
 
 		'vue/block-order': ['error', {
 			order: ['script', 'template', 'style'],
@@ -110,5 +141,7 @@ module.exports = {
 			],
 		}],
 		'import/no-default-export': 'warn',
+		'import/first': 'error',
+		'import/newline-after-import': 'error',
 	},
 }
