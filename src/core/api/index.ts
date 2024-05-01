@@ -10,6 +10,9 @@ import type {
 	GetProductRequestDto,
 	GetProductResponseDto, 
 } from '@/models/dto/products/get-product'
+import type {
+	SearchProductsOptionAttributeFilterDto, SearchProductsRequestDto, SearchProductsResponseDto, 
+} from '@/models/dto/products/search-products'
 
 export class EcwidApi {
 	private readonly baseUrl = 'https://app.ecwid.com/'
@@ -43,6 +46,17 @@ export class EcwidApi {
 			method: 'GET',
 			url: `api/v3/${this.storeId}/products/${id}`,
 			body: payload,
+		})
+	}
+
+	async searchProducts(payload: SearchProductsRequestDto = {}, filter: SearchProductsOptionAttributeFilterDto = {}): Promise<SearchProductsResponseDto> {
+		return this.request<SearchProductsRequestDto & SearchProductsOptionAttributeFilterDto, SearchProductsResponseDto>({
+			method: 'GET',
+			url: `api/v3/${this.storeId}/products`,
+			body: {
+				...payload,
+				...filter,
+			} as SearchProductsRequestDto & SearchProductsOptionAttributeFilterDto,
 		})
 	}
 }

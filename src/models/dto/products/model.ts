@@ -17,7 +17,7 @@ export type ProductOptionChoiceDto = {
 }
 
 export type ProductOptionDto = {
-	type?: string
+	type?: 'SELECT' | 'RADIO' | 'CHECKBOX' | 'TEXTFIELD' | 'TEXTAREA' | 'DATE' | 'FILES' | 'SIZE'
 	name?: string
 	nameTranslated?: TranslationsDto
 	choices?: ProductOptionChoiceDto[]
@@ -158,7 +158,7 @@ export type ProductVariationDto = {
 	compareToPrice?: number
 	minPurchaseQuantity?: number
 	maxPurchaseQuantity?: number
-	outOfStockVisibilityBehaviour?: string
+	outOfStockVisibilityBehaviour?: 'SHOW' | 'HIDE' | 'ALLOW_PREORDER'
 }
 
 export type ProductDimensionsDto = {
@@ -273,7 +273,7 @@ export type ProductModelDto = {
 	ribbonTranslated?: TranslationsDto
 	externalReferenceId?: string
 	customsHsTariffCode?: string
-	outOfStockVisibilityBehaviour?: string
+	outOfStockVisibilityBehaviour?: 'SHOW' | 'HIDE' | 'ALLOW_PREORDER'
 	minPurchaseQuantity?: number
 	maxPurchaseQuantity?: number
 }
