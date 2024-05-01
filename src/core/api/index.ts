@@ -3,8 +3,13 @@ import type {
 	IHttpClient, 
 } from '@/core/gateways/http-client'
 import type {
-	GetCategoriesRequestDto, GetCategoriesResponseDto, 
+	GetCategoriesRequestDto,
+	GetCategoriesResponseDto, 
 } from '@/models/dto/categories/get-categories'
+import type {
+	GetProductRequestDto,
+	GetProductResponseDto, 
+} from '@/models/dto/products/get-product'
 
 export class EcwidApi {
 	private readonly baseUrl = 'https://app.ecwid.com/'
@@ -29,6 +34,14 @@ export class EcwidApi {
 		return this.request<GetCategoriesRequestDto, GetCategoriesResponseDto>({
 			method: 'GET',
 			url: `api/v3/${this.storeId}/categories`,
+			body: payload,
+		})
+	}
+
+	async getProduct(id: number, payload: GetProductRequestDto = {}): Promise<GetProductResponseDto> {
+		return this.request<GetProductRequestDto, GetProductResponseDto>({
+			method: 'GET',
+			url: `api/v3/${this.storeId}/products/${id}`,
 			body: payload,
 		})
 	}
