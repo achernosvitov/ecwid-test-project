@@ -1,5 +1,6 @@
 import type {
 	HttpRequestOptions,
+	HttpResponse,
 	IHttpClient, 
 } from '@/core/gateways/http-client'
 import type {
@@ -22,7 +23,7 @@ export class EcwidApi {
 		
 	constructor(private readonly http: IHttpClient) {}
 
-	private request<Request = unknown, Response = unknown>(options: HttpRequestOptions<Request>): Promise<Response> {
+	private request<Request = unknown, Response = unknown>(options: HttpRequestOptions<Request>): Promise<HttpResponse<Response>> {
 		return this.http.request({
 			...options,
 			url: this.baseUrl + options.url,
@@ -33,7 +34,7 @@ export class EcwidApi {
 		})
 	}
 
-	async getCategories(payload: GetCategoriesRequestDto = {}): Promise<GetCategoriesResponseDto> {
+	async getCategories(payload: GetCategoriesRequestDto = {}) {
 		return this.request<GetCategoriesRequestDto, GetCategoriesResponseDto>({
 			method: 'GET',
 			url: `api/v3/${this.storeId}/categories`,
@@ -41,7 +42,7 @@ export class EcwidApi {
 		})
 	}
 
-	async getProduct(id: number, payload: GetProductRequestDto = {}): Promise<GetProductResponseDto> {
+	async getProduct(id: number, payload: GetProductRequestDto = {}) {
 		return this.request<GetProductRequestDto, GetProductResponseDto>({
 			method: 'GET',
 			url: `api/v3/${this.storeId}/products/${id}`,
@@ -49,7 +50,7 @@ export class EcwidApi {
 		})
 	}
 
-	async searchProducts(payload: SearchProductsRequestDto = {}, filter: SearchProductsOptionAttributeFilterDto = {}): Promise<SearchProductsResponseDto> {
+	async searchProducts(payload: SearchProductsRequestDto = {}, filter: SearchProductsOptionAttributeFilterDto = {}) {
 		return this.request<SearchProductsRequestDto & SearchProductsOptionAttributeFilterDto, SearchProductsResponseDto>({
 			method: 'GET',
 			url: `api/v3/${this.storeId}/products`,

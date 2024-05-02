@@ -1,4 +1,4 @@
-import type { ProductModelDto } from '@/core/models/dto/products/model'
+import type { ProductModelDto } from '@/models/dto/products/model'
 
 export type SearchProductsOptionAttributeFilterDto = Record<string, string>
 
@@ -35,10 +35,15 @@ export type SearchProductsRequestDto = {
 	slugsWithoutIds?: boolean
 	onsale?: 'onsale' | 'notonsale'
 	inventory?: 'instock' | 'outofstock'
-	externalReferenceId?: string
 	isCustomerSetPrice?: boolean
 	visibleInStorefront?: boolean
 	responseFields?: string
 }
 
-export type SearchProductsResponseDto = ProductModelDto[]
+export type SearchProductsResponseDto = {
+	total?: number
+	count?: number
+	offset?: number
+	limit?: number
+	items?: ProductModelDto[]
+}

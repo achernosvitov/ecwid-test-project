@@ -7,6 +7,17 @@ export type HttpRequestOptions<R> = {
 	body?: R
 }
 
+export type HttpResponse<T> = {
+	data?: T
+	statusCode?: number
+}
+
+export interface HttpErrorResponse<T = unknown> {
+	message?: string
+	code?: string
+	response?: HttpResponse<T>
+}
+
 export interface IHttpClient {
-	request<Request = unknown, Response = unknown>(options: HttpRequestOptions<Request>): Promise<Response>
+	request<Request = unknown, Response = unknown>(options: HttpRequestOptions<Request>): Promise<HttpResponse<Response>>
 }
