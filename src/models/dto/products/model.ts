@@ -1,8 +1,9 @@
-import type { ShippingSettingsDto } from '../shipping'
-import type { TaxInfoDto } from '../tax'
+import type { TaxInfoDto } from '@/models/dto/tax'
 import type {
 	AltTranslationsDto, TranslationsDto, 
-} from '../translations'
+} from '@/models/dto/translations'
+import type { ImageBorderInfoDto } from '@/models/dto/media'
+import type { ShippingSettingsDto } from '@/models/dto/shipping'
 
 export type WholesalePriceDto = {
 	quantity?: number
@@ -31,18 +32,6 @@ export type ProductOriginalImagesDto = {
 	height?: number
 }
 
-export type ColorDto = {
-	red?: number
-	green?: number
-	blue?: number
-	alpha?: number
-}
-
-export type ProductGalleryImageBorderInfo = {
-	dominatingColor?: ColorDto
-	homogeneity?: boolean
-}
-
 export type ProductGalleryImageDto = {
 	id?: number
 	url?: string
@@ -55,7 +44,7 @@ export type ProductGalleryImageDto = {
 	width?: number
 	height?: number
 	orderBy?: number
-	borderInfo?: ProductGalleryImageBorderInfo
+	borderInfo?: ImageBorderInfoDto
 }
 
 export type ProductImageDto = {
@@ -198,6 +187,7 @@ export type ProductRibbonDto = {
 export type ProductModelDto = {
 	id?: number
 	sku?: string
+	thumbnailUrl?: string
 	quantity?: number
 	locationInventory?: Record<string, number>
 	unlimited?: boolean
@@ -248,6 +238,9 @@ export type ProductModelDto = {
 	 * @format html
 	 */
 	description?: string
+	descriptionTranslated?: TranslationsDto
+	galleryImages?: ProductGalleryImageDto[]
+	borderInfo?: ImageBorderInfoDto
 	categoryIds?: number[]
 	categories?: ProductCategoryInfoDto[]
 	defaultCategoryId?: number
