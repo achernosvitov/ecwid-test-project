@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { log } from 'console'
-
 import {
 	computed, type StyleValue, 
 } from 'vue'

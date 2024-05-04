@@ -1,3 +1,4 @@
+import type { ImageBorderInfoDto } from '@/models/dto/media'
 import type {
 	AltTranslationsDto,
 	TranslationsDto, 
@@ -36,4 +37,5 @@ export type CategoryModelDto = {
 	seoDescription?: string
 	seoDecriptionTranslated?: string
 	alt?: AltTranslationsDto
+	borderInfo?: ImageBorderInfoDto
 }
