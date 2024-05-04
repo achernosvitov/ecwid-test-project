@@ -14,7 +14,7 @@ export type ProductOptionChoiceDto = {
 	text?: string
 	textTranslated?: string
 	priceModifier?: number
-	priceModifierType?: string
+	priceModifierType?: 'PERCENT' | 'ABSOLUTE'
 }
 
 export type ProductOptionDto = {
@@ -239,6 +239,7 @@ export type ProductModelDto = {
 	 */
 	description?: string
 	descriptionTranslated?: TranslationsDto
+	media?: ProductMediaDto
 	galleryImages?: ProductGalleryImageDto[]
 	borderInfo?: ImageBorderInfoDto
 	categoryIds?: number[]
