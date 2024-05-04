@@ -4,8 +4,6 @@ import ProductList from '@/components/products/ProductList.vue'
 </script>
 
 <template>
-	<v-container>
-		<CategoryList class="mb-8" />
-		<ProductList />
-	</v-container>
+	<CategoryList class="mb-8" />
+	<ProductList />
 </template>

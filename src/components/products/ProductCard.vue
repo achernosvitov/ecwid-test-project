@@ -32,7 +32,7 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 		<v-img
 			:src="product.thumbnailUrl"
 			aspect-ratio="1"
-			rounded
+			rounded="lg"
 		>
 			<template #placeholder>
 				<div
@@ -46,14 +46,13 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 			{{ product.name }}
 		</v-card-title>
 
-		<v-card-text class="font-weight-bold">
+		<v-card-subtitle class="font-weight-bold opacity-100">
 			{{ product.defaultDisplayedPriceFormatted }}
-		</v-card-text>
+		</v-card-subtitle>
 
 		<v-card-actions>
 			<v-btn
-				text="Buy"
-				variant="tonal"
+				text="Add to cart"
 			/>
 		</v-card-actions>
 	</v-card>

@@ -31,7 +31,7 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 		<v-img
 			:src="category.thumbnailUrl"
 			class="align-end text-white"
-			gradient="to bottom, rgba(0,0,0,0), rgba(0,0,0,.5)"
+			gradient="to bottom, rgba(0,0,0,0), rgba(0,0,0,.6)"
 			aspect-ratio="1"
 			cover
 		>
@@ -41,9 +41,16 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 					:style="placeholderBackground"
 				/>
 			</template>
-			<v-card-title class="d-flex justify-center">
-				<div>{{ category.name }}</div>	
-			</v-card-title>
+
+			<v-card-item>
+				<v-card-title>
+					{{ category.name }}
+				</v-card-title>
+
+				<v-card-subtitle v-if="category.productCount && category.productCount > 0">
+					{{ category.productCount }} Product{{ category.productCount > 1 ? 's' : '' }}
+				</v-card-subtitle>
+			</v-card-item>
 		</v-img>
 	</v-card>
 </template>

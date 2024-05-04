@@ -11,7 +11,6 @@ import AppHeader from './components/layout/AppHeader.vue'
 		<AppHeader />
 
 		<v-main
-			class="d-flex align-center justify-center"
 			style="min-height: 300px;"
 		>
 			<RouterView />
