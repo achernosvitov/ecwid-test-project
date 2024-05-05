@@ -13,15 +13,55 @@ import { useProductsService } from '@/core/composition/products-service'
 import { isRight } from '@/core/utils/either'
 import type { Product } from '@/core/models/products/model'
 import { formatPrice } from '@/core/utils/money'
+import type {
+	SelectedProductOptions, SelectedProductVariant, 
+} from '@/core/models/products/selected-product'
+import { useCartStore } from '@/stores/cart'
+import { calculateProductVariantId } from '@/core/utils/product'
+import type { CartItem } from '@/core/models/cart'
 
 const props = defineProps<{
 	id: string
 }>()
 
 const service = useProductsService()
+const cartStore = useCartStore()
 
 const product = ref<Product | null>(null)
-const selectedOptions = reactive<Record<string, string | null>>({})
+const selectedOptions = reactive<SelectedProductOptions>({})
+
+const productVariant = computed<SelectedProductVariant | null>(() => {
+	if (!product.value) {
+		return null
+	}
+
+	return {
+		product: product.value,
+		options: selectedOptions,
+	}
+})
+
+const productVariantId = computed<string | null>(() => {
+	if (!productVariant.value) {
+		return null
+	}
+
+	return calculateProductVariantId(productVariant.value)
+})
+
+const isAddToCartDisabled = computed<boolean>(() => {
+	return Object.values(selectedOptions).some((value) => value === null)
+})
+
+const cartItem = computed<CartItem | null>(() => {
+	if (!cartStore.items || !productVariantId.value) {
+		return null
+	}
+
+	return cartStore.items.find((item) => {
+		return item.id === productVariantId.value
+	}) ?? null
+})
 
 onBeforeMount(async () => {
 	const productId = props.id.match(/\d+$/)?.[0] ?? ''
@@ -51,9 +91,21 @@ watch(
 	},
 )
 
-const isAddToCardDisabled = computed<boolean>(() => {
-	return Object.values(selectedOptions).some((value) => value === null)
-})
+function addProductToCart(): void {
+	if (!productVariant.value) {
+		return
+	}
+
+	cartStore.addProduct(productVariant.value)
+}
+
+function setCartItemQuantity(quantity: number): void {
+	if (!productVariantId.value) {
+		return
+	}
+
+	cartStore.setItemQuantity(productVariantId.value, quantity)
+}
 </script>
 
 <template>
@@ -110,11 +162,52 @@ const isAddToCardDisabled = computed<boolean>(() => {
 							In stock
 						</div>
 
-						<v-btn
+						<v-card
+							v-if="cartItem"
+							style="width: 240px"
 							class="mb-4"
-							:disabled="isAddToCardDisabled"
+						>
+							<v-card-item>
+								<v-card-subtitle>
+									<v-btn
+										to="/cart"
+										text="Proceed to cart"
+										variant="text"
+										size="x-small"
+									/>
+								</v-card-subtitle>
+
+								<div class="d-flex">
+									<v-btn
+										icon="mdi-minus"
+										variant="plain"
+										@click="() => setCartItemQuantity(cartItem!.quantity - 1)"
+									/>
+
+									<v-text-field
+										v-model="cartItem.quantity"
+										class="ml-2 mr-2"
+										density="comfortable"
+										type="number"
+										variant="outlined"
+										hide-details
+									/>
+
+									<v-btn
+										icon="mdi-plus"
+										variant="plain"
+										@click="() => setCartItemQuantity(cartItem!.quantity + 1)"
+									/>
+								</div>
+							</v-card-item>
+						</v-card>
+						<v-btn
+							v-else
+							class="mb-4"
+							:disabled="isAddToCartDisabled"
 							text="Add to cart"
 							size="large"
+							@click="addProductToCart"
 						/>
 					</template>
 
