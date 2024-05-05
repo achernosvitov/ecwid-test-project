@@ -3,8 +3,8 @@ import {
 	computed, type StyleValue, 
 } from 'vue'
 
-import type { CategoryModelDto } from '@/models/dto/categories/model'
-import { getDominatingColorStyle } from '@/utils/color'
+import type { CategoryModelDto } from '@/core/models/dto/categories/model'
+import { getDominatingColorStyle } from '@/core/utils/color'
 
 const props = defineProps<{
 	category: CategoryModelDto

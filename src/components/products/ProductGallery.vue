@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { ProductImageDto } from '@/models/dto/products/model'
+import type { ProductImage } from '@/core/models/products/model'
 
 defineProps<{
-	images: ProductImageDto[] 
+	images: ProductImage[] 
 }>()
 </script>
 

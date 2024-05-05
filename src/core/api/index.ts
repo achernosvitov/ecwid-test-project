@@ -6,14 +6,14 @@ import type {
 import type {
 	GetCategoriesRequestDto,
 	GetCategoriesResponseDto, 
-} from '@/models/dto/categories/get-categories'
+} from '@/core/models/dto/categories/get-categories'
 import type {
 	GetProductRequestDto,
 	GetProductResponseDto, 
-} from '@/models/dto/products/get-product'
+} from '@/core/models/dto/products/get-product'
 import type {
 	SearchProductsOptionAttributeFilterDto, SearchProductsRequestDto, SearchProductsResponseDto, 
-} from '@/models/dto/products/search-products'
+} from '@/core/models/dto/products/search-products'
 
 export class EcwidApi {
 	private readonly baseUrl = 'https://app.ecwid.com/'

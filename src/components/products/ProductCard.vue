@@ -3,8 +3,8 @@ import {
 	computed, type StyleValue, 
 } from 'vue'
 
-import type { ProductModelDto } from '@/models/dto/products/model'
-import { getDominatingColorStyle } from '@/utils/color'
+import type { ProductModelDto } from '@/core/models/dto/products/model'
+import { getDominatingColorStyle } from '@/core/utils/color'
 
 const props = defineProps<{
 	product: ProductModelDto

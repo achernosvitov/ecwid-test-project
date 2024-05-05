@@ -1,4 +1,4 @@
-import type { ColorDto } from '@/models/dto/media'
+import type { ColorDto } from '@/core/models/dto/media'
 
 export function getDominatingColorStyle(color: ColorDto): string {
 	const {

@@ -1,4 +1,4 @@
-import type { ProductModelDto } from '@/models/dto/products/model'
+import type { ProductModelDto } from '@/core/models/dto/products/model'
 
 export type SearchProductsOptionAttributeFilterDto = Record<string, string>
 

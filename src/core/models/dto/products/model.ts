@@ -1,9 +1,9 @@
-import type { TaxInfoDto } from '@/models/dto/tax'
+import type { TaxInfoDto } from '@/core/models/dto/tax'
 import type {
 	AltTranslationsDto, TranslationsDto, 
-} from '@/models/dto/translations'
-import type { ImageBorderInfoDto } from '@/models/dto/media'
-import type { ShippingSettingsDto } from '@/models/dto/shipping'
+} from '@/core/models/dto/translations'
+import type { ImageBorderInfoDto } from '@/core/models/dto/media'
+import type { ShippingSettingsDto } from '@/core/models/dto/shipping'
 
 export type WholesalePriceDto = {
 	quantity?: number
@@ -17,8 +17,10 @@ export type ProductOptionChoiceDto = {
 	priceModifierType?: 'PERCENT' | 'ABSOLUTE'
 }
 
+export type ProductOptionTypeDto = 'SELECT' | 'RADIO' | 'CHECKBOX' | 'TEXTFIELD' | 'TEXTAREA' | 'DATE' | 'FILES' | 'SIZE'
+
 export type ProductOptionDto = {
-	type?: 'SELECT' | 'RADIO' | 'CHECKBOX' | 'TEXTFIELD' | 'TEXTAREA' | 'DATE' | 'FILES' | 'SIZE'
+	type?: ProductOptionTypeDto
 	name?: string
 	nameTranslated?: TranslationsDto
 	choices?: ProductOptionChoiceDto[]
@@ -188,6 +190,8 @@ export type ProductModelDto = {
 	id?: number
 	sku?: string
 	thumbnailUrl?: string
+	smallThumbnailUrl?: string
+	hdThumbnailUrl?: string
 	quantity?: number
 	locationInventory?: Record<string, number>
 	unlimited?: boolean

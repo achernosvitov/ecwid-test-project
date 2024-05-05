@@ -7,25 +7,30 @@ import {
 	computed,
 } from 'vue'
 
-import { useEcwidApi } from '@/core/composables/api'
-import type { ProductModelDto } from '@/models/dto/products/model'
 import ProductGallery from '@/components/products/ProductGallery.vue'
 import ProductOptions from '@/components/products/ProductOptions.vue'
+import { useProductsService } from '@/core/composition/products-service'
+import { isRight } from '@/core/utils/either'
+import type { Product } from '@/core/models/products/model'
+import { formatPrice } from '@/core/utils/money'
 
 const props = defineProps<{
 	id: string
 }>()
 
-const api = useEcwidApi()
+const service = useProductsService()
 
-const product = ref<ProductModelDto | null>(null)
-
+const product = ref<Product | null>(null)
 const selectedOptions = reactive<Record<string, string | null>>({})
 
 onBeforeMount(async () => {
 	const productId = props.id.match(/\d+$/)?.[0] ?? ''
 	
-	product.value = (await api.getProduct(parseInt(productId))).data ?? null
+	const data = await service.getProduct(productId)
+
+	if (isRight(data)) {
+		product.value = data.right
+	}
 })
 
 watch(
@@ -40,7 +45,7 @@ watch(
 				return
 			}
 
-			selectedOptions[option.name] = option.choices && option.defaultChoice !== undefined ? option.choices[option.defaultChoice].text ?? null : null
+			selectedOptions[option.name] = option.variants !== undefined ? option.variants.find((variant) => variant.isDefault)?.value ?? null : null
 		})
 		
 	},
@@ -65,7 +70,7 @@ const isAddToCardDisabled = computed<boolean>(() => {
 					/>
 					<v-img
 						v-else
-						:src="product?.thumbnailUrl"
+						:src="product?.thumbnail.hdThumnnailUrl"
 						aspect-ratio="1"
 					/>
 				</v-sheet>
@@ -80,8 +85,11 @@ const isAddToCardDisabled = computed<boolean>(() => {
 						{{ product?.name }}
 					</h1>
 
-					<div class="text-h6 font-weight-bold mb-2">
-						{{ product?.defaultDisplayedPriceFormatted }}
+					<div
+						v-if="product?.price"
+						class="text-h6 font-weight-bold mb-2"
+					>
+						{{ formatPrice(product.price) }}
 					</div>
 
 					<div class="text-h6 font-weight-bold mb-2">
@@ -94,10 +102,10 @@ const isAddToCardDisabled = computed<boolean>(() => {
 						class="mb-2"
 						:options="options"
 						:model-value="selectedOptions[options.name ?? '']"
-						@change="(choice) => selectedOptions[options.name ?? ''] = choice"
+						@change="(variant) => selectedOptions[options.name ?? ''] = variant"
 					/>
 
-					<template v-if="product?.inStock">
+					<template v-if="product?.stock.inStock">
 						<div class="text-h6 mb-2">
 							In stock
 						</div>

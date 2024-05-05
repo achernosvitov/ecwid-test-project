@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import type {
-	ProductOptionDto, 
-} from '@/models/dto/products/model'
+import type { ProductOption } from '@/core/models/products/model'
 
 defineProps<{
-	options: ProductOptionDto
+	options: ProductOption
 }>()
 
 const selected = defineModel({
@@ -21,13 +19,13 @@ const emit = defineEmits<{
 		v-model="selected"
 		:label="options.name"
 		hide-details="auto"
-		@update:model-value="emit('change', selected ?? null)"
+		@update:model-value="(value) => emit('change', value)"
 	>
 		<v-radio
-			v-for="choice in options?.choices"
-			:key="choice.text"
-			:label="choice.text"
-			:value="choice.text"
+			v-for="variant in options.variants"
+			:key="variant.value"
+			:label="variant.value"
+			:value="variant.value"
 		/>
 	</v-radio-group>
 </template>

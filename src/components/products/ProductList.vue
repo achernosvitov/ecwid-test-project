@@ -4,8 +4,8 @@ import {
 } from 'vue'
 
 import ProductCard from '@/components/products/ProductCard.vue'
-import { useEcwidApi } from '@/core/composables/api'
-import type { ProductModelDto } from '@/models/dto/products/model'
+import { useEcwidApi } from '@/core/composition/api'
+import type { ProductModelDto } from '@/core/models/dto/products/model'
 
 const api = useEcwidApi()
 const productList = ref<ProductModelDto[] | null>(null)

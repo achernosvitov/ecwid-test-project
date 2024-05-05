@@ -4,8 +4,8 @@ import {
 } from 'vue'
 
 import CategoryCard from '@/components/categories/CategoryCard.vue'
-import type { CategoryModelDto } from '@/models/dto/categories/model'
-import { useEcwidApi } from '@/core/composables/api'
+import type { CategoryModelDto } from '@/core/models/dto/categories/model'
+import { useEcwidApi } from '@/core/composition/api'
 
 const api = useEcwidApi()
 const categoryList = ref<CategoryModelDto[] | null>(null)
@@ -38,3 +38,4 @@ onBeforeMount(async () => {
 		</v-row>
 	</v-container>
 </template>
+@/core/models/dto/categories/model

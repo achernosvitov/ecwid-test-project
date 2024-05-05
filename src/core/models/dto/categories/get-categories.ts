@@ -1,4 +1,4 @@
-import type { CategoryModelDto } from '@/models/dto/categories/model'
+import type { CategoryModelDto } from '@/core/models/dto/categories/model'
 
 export type GetCategoriesRequestDto = {
 	keyword?: string

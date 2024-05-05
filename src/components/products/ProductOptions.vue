@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import ProductOptionsRadio from '@/components/products/ProductOptionsRadio.vue'
-import type {
-	ProductOptionDto, 
-} from '@/models/dto/products/model'
+import {
+	ProductOptionType, type ProductOption, 
+} from '@/core/models/products/model'
 
 defineProps<{
-	options: ProductOptionDto
+	options: ProductOption
 }>()
 
 const selected = defineModel({
@@ -20,10 +20,10 @@ const emit = defineEmits<{
 <template>
 	<!-- Currently there are only products with radio type options provided so there is no reason to implement other types -->
 	<ProductOptionsRadio
-		v-if="options.type === 'RADIO'"
+		v-if="options.type === ProductOptionType.Radio"
 		:options="options"
 		:model-value="selected"
-		@change="emit('change', selected ?? null)"
+		@change="(value) => emit('change', value)"
 	/>
 	<div v-else>
 		{{ options.name }}: this option type is not supported yet.

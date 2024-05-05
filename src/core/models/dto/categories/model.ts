@@ -1,8 +1,8 @@
-import type { ImageBorderInfoDto } from '@/models/dto/media'
+import type { ImageBorderInfoDto } from '@/core/models/dto/media'
 import type {
 	AltTranslationsDto,
 	TranslationsDto, 
-} from '@/models/dto/translations'
+} from '@/core/models/dto/translations'
 
 export type CategoryImageDetailsDto = {
 	url?: string
