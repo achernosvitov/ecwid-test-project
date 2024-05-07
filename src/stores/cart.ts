@@ -1,61 +1,53 @@
 import { defineStore } from 'pinia'
 import {
-	computed, reactive, 
+	computed,
+	ref,
 } from 'vue'
 
 import type { CartItem } from '@/core/models/cart'
 import type { SelectedProductVariant } from '@/core/models/products/selected-product'
-import { calculateProductVariantId } from '@/core/utils/product'
+import {
+	addProductToCart,
+	removeCartItemById,
+	setCartItemQuantityById, 
+	calculateCartSummaryCount,
+} from '@/core/features/cart'
+import type { Money } from '@/core/models/money'
 
 export const useCartStore = defineStore('Cart', () => {
-	const _items = reactive<CartItem[]>([])
+	const items = ref<CartItem[]>([])
+	const isLoading = ref(false)
 
-	const items = computed<CartItem[]>(() => _items)
+	const cartSummary = computed<Money>(() => {
+		return calculateCartSummaryCount(items.value)
+	})
+
+	function setCart(_items: CartItem[]): void {
+		items.value = _items
+	}
+
+	function resetCart(): void {
+		items.value = []
+	}
 
 	function addProduct(productVariant: SelectedProductVariant): void {
-		const productVariantId = calculateProductVariantId(productVariant)
-		const sameVariantIndex = _items.findIndex((item) => item.id === productVariantId)
-		
-		if (sameVariantIndex !== -1) {
-			_items[sameVariantIndex].quantity++
-
-			return
-		}
-
-		_items.push({
-			id: productVariantId,
-			product: productVariant.product,
-			selectedOptions: productVariant.options,
-			quantity: 1,
-		})
+		items.value = addProductToCart(productVariant, items.value)
 	}
 
-	function removeItemById(id: string): boolean {
-		const itemIndex = _items.findIndex((item) => item.id === id)
-
-		if (itemIndex === -1) {
-			return false
-		}
-
-		_items.splice(itemIndex, 1)
-
-		return true
+	function removeItemById(id: string): void {
+		items.value = removeCartItemById(id, items.value)
 	}
 
-	function setItemQuantity(id: string, quantity: number): boolean {
-		const itemIndex = _items.findIndex((item) => item.id === id)
-
-		if (itemIndex === -1) {
-			return false
-		}
-
-		_items[itemIndex].quantity = quantity
-
-		return true
+	function setItemQuantity(id: string, quantity: number): void {
+		items.value = setCartItemQuantityById(id, quantity, items.value)
 	}
 
 	return {
 		items,
+		isLoading,
+		cartSummary,
+		setCart,
+		resetCart,
 		addProduct,
 		removeItemById,
 		setItemQuantity,

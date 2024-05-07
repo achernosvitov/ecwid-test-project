@@ -16,16 +16,16 @@ import { formatPrice } from '@/core/utils/money'
 import type {
 	SelectedProductOptions, SelectedProductVariant, 
 } from '@/core/models/products/selected-product'
-import { useCartStore } from '@/stores/cart'
-import { calculateProductVariantId } from '@/core/utils/product'
+import { calculateProductVariantId } from '@/core/features/cart'
 import type { CartItem } from '@/core/models/cart'
+import { useCart } from '@/composables/cart/cart'
 
 const props = defineProps<{
 	id: string
 }>()
 
+const cart = useCart()
 const service = useProductsService()
-const cartStore = useCartStore()
 
 const product = ref<Product | null>(null)
 const selectedOptions = reactive<SelectedProductOptions>({})
@@ -54,11 +54,11 @@ const isAddToCartDisabled = computed<boolean>(() => {
 })
 
 const cartItem = computed<CartItem | null>(() => {
-	if (!cartStore.items || !productVariantId.value) {
+	if (!cart.store.items || !productVariantId.value) {
 		return null
 	}
 
-	return cartStore.items.find((item) => {
+	return cart.store.items.find((item) => {
 		return item.id === productVariantId.value
 	}) ?? null
 })
@@ -67,6 +67,8 @@ onBeforeMount(async () => {
 	const productId = props.id.match(/\d+$/)?.[0] ?? ''
 	
 	const data = await service.getProduct(productId)
+
+	await cart.getCart()
 
 	if (isRight(data)) {
 		product.value = data.right
@@ -91,20 +93,20 @@ watch(
 	},
 )
 
-function addProductToCart(): void {
-	if (!productVariant.value) {
+async function addProductToCart(): Promise<void> {
+	if (!product?.value) {
 		return
 	}
 
-	cartStore.addProduct(productVariant.value)
+	await cart.addProduct(product.value, selectedOptions)
 }
 
-function setCartItemQuantity(quantity: number): void {
-	if (!productVariantId.value) {
+async function setCartItemQuantity(quantity: number): Promise<void> {
+	if (!cartItem.value) {
 		return
 	}
 
-	cartStore.setItemQuantity(productVariantId.value, quantity)
+	await cart.setItemQuantity(cartItem.value, quantity)
 }
 </script>
 

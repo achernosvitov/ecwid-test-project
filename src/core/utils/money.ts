@@ -1,6 +1,9 @@
 import {
+	add,
 	dinero,
-	toDecimal, 
+	multiply,
+	toDecimal,
+	toSnapshot, 
 } from 'dinero.js'
 
 import { CURRENCY_DICTIONARY } from '../dictionaries/currency'
@@ -20,4 +23,22 @@ export function formatPrice(price: Money): string {
 
 		return `${value} ${label ?? currency.code}`
 	})
+}
+
+export function multiplyMoney(money: Money, multiplier: number): Money {
+	const d = dinero(money)
+	const multiplied = multiply(d, multiplier)
+
+	console.log(money, toSnapshot(multiplied))
+
+	return toSnapshot(multiplied) as Money
+}
+
+export function addMoney(augend: Money, addend: Money): Money {
+	const d1 = dinero(augend)
+	const d2 = dinero(addend)
+
+	const sum = add(d1, d2)
+
+	return toSnapshot(sum) as Money
 }
