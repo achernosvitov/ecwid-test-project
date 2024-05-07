@@ -29,8 +29,6 @@ export function multiplyMoney(money: Money, multiplier: number): Money {
 	const d = dinero(money)
 	const multiplied = multiply(d, multiplier)
 
-	console.log(money, toSnapshot(multiplied))
-
 	return toSnapshot(multiplied) as Money
 }
 

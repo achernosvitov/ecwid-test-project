@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import {
-	ref, onBeforeMount, 
+	onBeforeMount, 
 } from 'vue'
 
 import ProductCard from '@/components/products/ProductCard.vue'
-import { useEcwidApi } from '@/core/composition/api'
-import type { ProductModelDto } from '@/core/models/dto/products/model'
 import { useProductList } from '@/composables/products/product-list'
 
 const productList = useProductList()
 
 onBeforeMount(async () => {
-	await productList.loadFirstPage()
+	await productList.loadNextPage()
 })
 </script>
 
@@ -26,7 +24,7 @@ onBeforeMount(async () => {
 				:key="index"
 			>
 				<v-col
-					v-for="product in page"
+					v-for="product in page.items"
 					:key="product.id"
 					cols="12"
 					sm="6"
