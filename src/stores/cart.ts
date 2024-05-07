@@ -11,6 +11,7 @@ import {
 	removeCartItemById,
 	setCartItemQuantityById, 
 	calculateCartSummaryCount,
+	calculateCartItemCount,
 } from '@/core/features/cart'
 import type { Money } from '@/core/models/money'
 
@@ -20,6 +21,10 @@ export const useCartStore = defineStore('Cart', () => {
 
 	const cartSummary = computed<Money>(() => {
 		return calculateCartSummaryCount(items.value)
+	})
+
+	const itemCount = computed<number>(() => {
+		return calculateCartItemCount(items.value)
 	})
 
 	function setCart(_items: CartItem[]): void {
@@ -46,6 +51,7 @@ export const useCartStore = defineStore('Cart', () => {
 		items,
 		isLoading,
 		cartSummary,
+		itemCount,
 		setCart,
 		resetCart,
 		addProduct,

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CartButton from '@/components/cart/CartButton.vue'
 </script>
 
 <template>
@@ -13,10 +14,7 @@
 
 			<v-spacer />
 			
-			<v-btn
-				icon="mdi-cart"
-				rounded="circle"
-			/>
+			<CartButton />
 		</v-container>
 	</v-app-bar>
 </template>

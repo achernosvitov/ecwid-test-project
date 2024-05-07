@@ -85,3 +85,9 @@ export function calculateCartSummaryCount(cartItems: CartItem[]): Money {
 		return addMoney(acc, productVariantPrice)
 	}, baseSummary)
 }
+
+export function calculateCartItemCount(items: CartItem[]): number {
+	return items.reduce((count, item) => {
+		return count + item.quantity
+	}, 0)
+}
