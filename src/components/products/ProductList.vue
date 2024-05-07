@@ -6,17 +6,12 @@ import {
 import ProductCard from '@/components/products/ProductCard.vue'
 import { useEcwidApi } from '@/core/composition/api'
 import type { ProductModelDto } from '@/core/models/dto/products/model'
+import { useProductList } from '@/composables/products/product-list'
 
-const api = useEcwidApi()
-const productList = ref<ProductModelDto[] | null>(null)
+const productList = useProductList()
 
 onBeforeMount(async () => {
-	// @TODO: create and replace getCategories service
-	const response = await api.searchProducts({
-		limit: 12,
-	})
-
-	productList.value = response.data?.items ?? []
+	await productList.loadFirstPage()
 })
 </script>
 
@@ -26,18 +21,23 @@ onBeforeMount(async () => {
 			justify="center"
 			align-content="stretch"
 		>
-			<v-col
-				v-for="product in productList"
-				:key="product.id"
-				cols="12"
-				sm="6"
-				md="4"
-				lg="3"
+			<template
+				v-for="(page, index) in productList.pages.value"
+				:key="index"
 			>
-				<ProductCard
-					:product="product"
-				/>
-			</v-col>
+				<v-col
+					v-for="product in page"
+					:key="product.id"
+					cols="12"
+					sm="6"
+					md="4"
+					lg="3"
+				>
+					<ProductCard
+						:product="product"
+					/>
+				</v-col>
+			</template>
 		</v-row>
 	</v-container>
 </template>
