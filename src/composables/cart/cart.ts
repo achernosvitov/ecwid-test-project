@@ -27,7 +27,7 @@ export function useCart() {
 		store.isLoading = false
 	}
 
-	async function getCart(): Promise<void> {
+	async function loadCart(): Promise<void> {
 		store.isLoading = true
 
 		const response = await service.getCart()
@@ -70,7 +70,7 @@ export function useCart() {
 
 	return {
 		store,
-		getCart,
+		loadCart,
 		addProduct,
 		removeItem,
 		setItemQuantity,

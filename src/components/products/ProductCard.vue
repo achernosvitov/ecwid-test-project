@@ -1,17 +1,22 @@
 <script setup lang="ts">
 import {
 	computed,
+	toRef,
 	type StyleValue, 
 } from 'vue'
 
 import { getDominatingColorStyle } from '@/core/utils/color'
 import type { Product } from '@/core/models/products/model'
 import { getProductPageLink } from '@/core/features/product'
-import { formatPrice } from '@/core/utils/money'
+import { useProduct } from '@/composables/products/product'
 
 const props = defineProps<{
 	product: Product
 }>()
+
+const {
+	formattedPrice,
+} = useProduct(toRef(() => props.product))
 
 const productLink = computed<string>(() => {
 	return getProductPageLink(props.product)
@@ -23,10 +28,6 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 	return dominatingColor
 		? `background: ${getDominatingColorStyle(dominatingColor)}`
 		: undefined
-})
-
-const formattedPrice = computed<string>(() => {
-	return formatPrice(props.product.price)
 })
 </script>
 
@@ -58,7 +59,9 @@ const formattedPrice = computed<string>(() => {
 
 		<v-card-actions>
 			<v-btn
-				text="Add to cart"
+				block
+				variant="flat"
+				text="Buy"
 			/>
 		</v-card-actions>
 	</v-card>
