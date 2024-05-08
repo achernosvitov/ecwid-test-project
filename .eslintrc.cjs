@@ -28,6 +28,16 @@ module.exports = {
 		'plugin:vue/base',
 		'plugin:vue/vue3-recommended',
 	],
+	settings: {
+		'import/resolver': {
+			alias: {
+				map: [
+					['@', './src'],
+				],
+				extensions: ['.ts', '.vue'],
+			},
+		},
+	},
 	rules: {
 		'indent': 'off',
 		'@typescript-eslint/indent': ['error', 'tab', {

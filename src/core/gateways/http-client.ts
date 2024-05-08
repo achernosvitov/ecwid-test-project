@@ -12,7 +12,7 @@ export type HttpResponse<T> = {
 	statusCode?: number
 }
 
-export interface HttpErrorResponse<T = unknown> {
+export interface HttpErrorResponse<T = any> {
 	message?: string
 	code?: string
 	response?: HttpResponse<T>

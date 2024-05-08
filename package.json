@@ -12,15 +12,21 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "axios": "^1.6.8",
+    "dinero.js": "^2.0.0-alpha.14",
     "pinia": "^2.1.7",
+    "sanitize-html": "^2.13.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-toastify": "^0.2.1",
+    "vuetify": "^3.6.3"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.12.5",
+    "@types/sanitize-html": "^2.11.0",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
     "@vitejs/plugin-vue": "^5.0.4",
@@ -28,6 +34,7 @@
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
     "eslint": "^8.57.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-compat": "^4.2.0",
     "eslint-plugin-import": "^2.29.1",
@@ -35,6 +42,7 @@
     "npm-run-all2": "^6.1.2",
     "typescript": "~5.4.0",
     "vite": "^5.2.8",
+    "vite-plugin-vuetify": "^2.0.3",
     "vue-tsc": "^2.0.11"
   }
 }
