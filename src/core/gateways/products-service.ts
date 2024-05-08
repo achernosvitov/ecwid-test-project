@@ -5,8 +5,6 @@ import type { Pagination } from '@/core/gateways/pagination'
 
 export type GetProductListRequest = {
 	categories?: string
-	offset?: number
-	limit?: number
 }
 
 export type GetProductListResponse = {

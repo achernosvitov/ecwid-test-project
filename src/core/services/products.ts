@@ -7,7 +7,7 @@ import type {
 	HttpErrorResponse,
 } from '@/core/gateways/http-client'
 import type { Product } from '@/core/models/products/model'
-import { fromProductModelDto } from '@/core/transformers/fromProductModelDto'
+import { fromProductModelDto } from '@/core/adapters/fromProductModelDto'
 import {
 	makeRight, type Either, makeLeft, 
 } from '@/core/utils/either'
