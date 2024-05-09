@@ -1,8 +1,10 @@
 import type {
-	GetCategoryListRequest, GetCategoryListResponse, ICategoriesService, 
+	GetCategoryListRequest,
+	GetCategoryListResponse,
+	ICategoriesService, 
 } from '@/core/gateways/categories-service'
 import type { HttpErrorResponse } from '@/core/gateways/http-client'
-import { fromCategoryModelDto } from '@/core/adapters/fromCategoryModelDto'
+import { fromCategoryModelDto } from '@/core/adapters/from-category-model-dto'
 import type { EcwidApi } from '@/core/api'
 import type { Pagination } from '@/core/gateways/pagination'
 import {

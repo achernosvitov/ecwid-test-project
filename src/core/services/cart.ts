@@ -1,3 +1,4 @@
+import { fromSerializedCart } from '@/core/adapters/from-serialized-cart'
 import type { CartItem } from '@/core/models/cart'
 import {
 	makeLeft, type Either, makeRight, 
@@ -8,10 +9,6 @@ export class CartService {
 
 	constructor(private readonly storage: Storage) {}
 
-	private parseString(value: string): CartItem[] {
-		return JSON.parse(value) as CartItem[]
-	}
-
 	async getCart(): Promise<Either<Error, CartItem[]>> {
 		try {
 			const value = this.storage.getItem(this.storageKey)
@@ -20,7 +17,7 @@ export class CartService {
 				return makeRight([])
 			}
 
-			return makeRight(this.parseString(value))
+			return makeRight(fromSerializedCart(value))
 		} catch (error) {
 			return makeLeft(error as Error)
 		}

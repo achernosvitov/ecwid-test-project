@@ -60,7 +60,7 @@ export function setCartItemQuantityById(id: string, quantity: number, cartItems:
 		return items
 	}
 
-	if (quantity < ITEM_MIN_QUANTITY) {
+	if (quantity < ITEM_MIN_QUANTITY) {	
 		return removeCartItemById(items[itemIndex].id, items)
 	}
 
