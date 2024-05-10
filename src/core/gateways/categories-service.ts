@@ -19,4 +19,5 @@ export type GetCategoryListResponse = {
 
 export interface ICategoriesService {
 	getCategoryList(payload?: GetCategoryListRequest, pagination?: Pagination): Promise<Either<HttpErrorResponse, GetCategoryListResponse>>
+	getCategory(id: string): Promise<Either<HttpErrorResponse, Category>>
 }

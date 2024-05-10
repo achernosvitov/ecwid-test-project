@@ -1,5 +1,11 @@
 import type { Category } from '@/core/models/category'
 
 export function getCategoryPageLink(category: Category): string {
-	return `/products/${category.slug}-${category.id}`
+	return `/categories/${category.slug}-${category.id}`
+}
+
+export function getCategoryIdFromSlug(slug: string): string {
+	const idRegExp = /\d+$/
+
+	return slug.match(idRegExp)?.[0] ?? ''
 }

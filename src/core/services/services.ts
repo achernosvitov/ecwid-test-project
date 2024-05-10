@@ -12,6 +12,7 @@ import {
 	makeRight,
 	makeLeft, 
 } from '@/core/utils/either'
+import type { Category } from '@/core/models/category'
 
 export class CategoriesService implements ICategoriesService {
 	constructor(private readonly api: EcwidApi) {}
@@ -33,6 +34,20 @@ export class CategoriesService implements ICategoriesService {
 				limit: data?.limit ?? 0,
 				offset: data?.offset ?? 0,
 			}
+
+			return makeRight(response)
+		} catch (e) {
+			return makeLeft(e as HttpErrorResponse)
+		}
+	}
+
+	async getCategory(id: string): Promise<Either<HttpErrorResponse, Category>> {
+		try {
+			const {
+				data,
+			} = await this.api.getCategory(parseInt(id))
+
+			const response = fromCategoryModelDto(data)
 
 			return makeRight(response)
 		} catch (e) {

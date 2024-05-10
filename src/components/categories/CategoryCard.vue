@@ -7,9 +7,14 @@ import { getDominatingColorStyle } from '@/core/utils/color'
 import type { Category } from '@/core/models/category'
 import { getCategoryPageLink } from '@/core/features/category'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
 	category: Category
-}>()
+	variant?: 'compact' | 'details'
+	aspectRatio?: number | string
+}>(), {
+	variant: () => 'compact',
+	aspectRatio: () => 1,
+})
 
 const categoryLink = computed<string>(() => {
 	return getCategoryPageLink(props.category)
@@ -26,14 +31,14 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 
 <template>
 	<v-card
-		:to="categoryLink"
-		hover
+		:to="variant === 'compact' ? categoryLink : undefined"
+		:hover="variant === 'compact'"
 	>
 		<v-img
 			:src="category.thumbnail?.imageUrl"
 			class="align-end text-white"
 			gradient="to bottom, rgba(0,0,0,0), rgba(0,0,0,.6)"
-			aspect-ratio="1"
+			:aspect-ratio="aspectRatio"
 			cover
 		>
 			<template #placeholder>
