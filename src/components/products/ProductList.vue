@@ -1,16 +1,30 @@
 <script setup lang="ts">
 import {
-	onBeforeMount, 
+	onBeforeMount, watch, 
 } from 'vue'
 
 import ProductCard from '@/components/products/ProductCard.vue'
 import { useProductList } from '@/composables/products/product-list'
+import type { GetProductListRequest } from '@/core/gateways/products-service'
+
+const props = defineProps<{
+	filters?: GetProductListRequest
+}>()
 
 const productList = useProductList()
 
 onBeforeMount(async () => {
-	await productList.loadNextPage()
+	if (props.filters) {
+		productList.filters.value = props.filters 
+	}
+	
+	await productList.loadFirstPage()
 })
+
+watch(
+	() => props.filters,
+	async () => await productList.loadFirstPage(),
+)
 </script>
 
 <template>

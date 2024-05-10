@@ -7,6 +7,7 @@ import type {
 	GetCategoriesRequestDto,
 	GetCategoriesResponseDto, 
 } from '@/core/models/dto/categories/get-categories'
+import type { CategoryModelDto } from '@/core/models/dto/categories/model'
 import type {
 	GetProductRequestDto,
 	GetProductResponseDto, 
@@ -39,6 +40,13 @@ export class EcwidApi {
 			method: 'GET',
 			url: `api/v3/${this.storeId}/categories`,
 			body: payload,
+		})
+	}
+
+	async getCategory(id: number) {
+		return this.request<{}, CategoryModelDto>({
+			method: 'GET',
+			url: `api/v3/${this.storeId}/categories/${id}`,
 		})
 	}
 

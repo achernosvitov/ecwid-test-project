@@ -42,17 +42,25 @@ export function useProductList() {
 		},
 	})
 
+	async function loadFirstPage(): Promise<void> {
+		pages.value = []
+
+		await loadPage()
+	}
+
 	async function loadNextPage(): Promise<void> {
 		await loadPage()
 	}
 
 	return {
 		filters,
+		perPage,
 		pages,
 		error,
 		isLoading,
 		isLoadingNextPage,
 		hasNextPage,
+		loadFirstPage,
 		loadNextPage,
 	}
 }
