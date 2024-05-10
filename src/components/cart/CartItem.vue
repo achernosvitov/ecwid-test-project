@@ -75,11 +75,11 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 
 				<v-spacer />
 
-				<input-count
+				<InputCount
 					v-model.number="quantity"
 					style="width: 135px"
 					:min="1"
-					:max="2"
+					:max="9999"
 					:disabled="isLoading"
 					density="compact"
 				/>

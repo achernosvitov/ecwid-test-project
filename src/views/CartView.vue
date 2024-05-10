@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import { useCart } from '@/composables/cart/cart'
 import CartItem from '@/components/cart/CartItem.vue'
 import { formatPrice } from '@/core/utils/money'
 import { CURRENCY_RUR } from '@/core/models/money'
-import PlaceOrderButton from '@/components/cart/PlaceOrderButton.vue'
+import OrderConfirmationPopup from '@/components/cart/OrderConfirmationPopup.vue'
 
 const {
 	store,
+	reset,
 } = useCart()
 
 // @TODO: there are no taxes in product models at the moment
@@ -20,6 +23,14 @@ const formattedDeliveryPrice = formatPrice({
 	amount: 0,
 	currency: CURRENCY_RUR,
 })
+
+const shouldShowPopup = ref(false)
+
+async function placeOrder(): Promise<void> {
+	await reset()
+
+	shouldShowPopup.value = true
+}
 </script>
 
 <template>
@@ -118,10 +129,25 @@ const formattedDeliveryPrice = formatPrice({
 					</v-card-text>
 
 					<v-card-actions>
-						<PlaceOrderButton />
+						<v-btn
+							variant="elevated"
+							size="large"
+							color="success"
+							block
+							:loading="store.isLoading"
+							@click="placeOrder"
+						>
+							<v-icon
+								icon="mdi-check-circle"
+								start
+							/>
+							Place Order
+						</v-btn>
 					</v-card-actions>
 				</v-card>
 			</v-col>
 		</v-row>
 	</v-container>
+
+	<OrderConfirmationPopup v-model="shouldShowPopup" />
 </template>

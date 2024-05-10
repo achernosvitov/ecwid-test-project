@@ -25,7 +25,7 @@ export class CartService {
 				} catch (error) {
 					resolve(makeLeft(error as Error))
 				}
-			}, 1000)
+			}, 100)
 		})
 
 	}
@@ -51,7 +51,7 @@ export class CartService {
 				} catch (error) {
 					resolve(makeLeft(error as Error))
 				}
-			}, 3000)
+			}, 500)
 		})
 		
 	}
