@@ -37,7 +37,7 @@ const {
 				cols="12"
 				lg="6"
 			>
-				<v-sheet aspect-ratio="1">
+				<div>
 					<ProductGallery
 						v-if="!!product.media?.images"
 						:images="product.media?.images"
@@ -47,14 +47,17 @@ const {
 						:src="product.thumbnail.hdThumnnailUrl"
 						aspect-ratio="1"
 					/>
-				</v-sheet>
+				</div>
 			</v-col>
 
 			<v-col
 				cols="12"
 				lg="6"
 			>
-				<v-sheet>
+				<v-sheet
+					class="pa-4"
+					rounded
+				>
 					<h1 class="text-h5 font-weight-bold mb-2">
 						{{ product.name }}
 					</h1>

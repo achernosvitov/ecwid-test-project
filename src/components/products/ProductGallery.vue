@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-	<v-carousel>
+	<v-carousel hide-delimiters>
 		<v-carousel-item
 			v-for="image in images"
 			:key="image.id"

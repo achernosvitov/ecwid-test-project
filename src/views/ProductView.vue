@@ -28,7 +28,24 @@ onBeforeMount(async () => {
 		v-if="data"
 		:product="data"
 	/>
-	<div v-else>
-		Loading...
-	</div>
+	<v-container v-else-if="isLoading">
+		<v-row>
+			<v-col
+				cols="12"
+				lg="6"
+			>
+				<v-skeleton-loader
+					ratio="1"
+					height="500px"
+				/>
+			</v-col>
+
+			<v-col
+				cols="12"
+				lg="6"
+			>
+				<v-skeleton-loader height="800px" />
+			</v-col>
+		</v-row>
+	</v-container>
 </template>
