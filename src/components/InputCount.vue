@@ -1,25 +1,26 @@
 <script setup lang="ts">
+const props = defineProps<{
+	min?: number
+	max?: number
+	density?: 'default' | 'comfortable' | 'compact'
+	disabled?: boolean
+}>()
+
 const value = defineModel({
 	type: Number,
 	required: true,
-	set(newValue: number): void {
+	set(newValue: number): number {
 		if (props.min !== undefined && newValue < props.min) {
-			return
+			return props.min
 		}
 
 		if (props.max !== undefined && newValue > props.max) {
-			return
+			return props.max
 		}
 
 		return newValue
 	},
 })
-
-const props = defineProps<{
-	min?: number
-	max?: number
-	density?: 'default' | 'comfortable' | 'compact'
-}>()
 </script>
 
 <template>
@@ -28,14 +29,16 @@ const props = defineProps<{
 			icon="mdi-minus"
 			variant="plain"
 			:density="density"
+			:disabled="disabled"
 			@click="() => value = value - 1"
 		/>
 
 		<v-text-field
 			v-model.number="value"
 			class="mx-1"
-			:density="density"
 			variant="outlined"
+			:density="density"
+			:disabled="disabled"
 			hide-details
 		/>
 
@@ -43,6 +46,7 @@ const props = defineProps<{
 			icon="mdi-plus"
 			variant="plain"
 			:density="density"
+			:disabled="disabled"
 			@click="() => value = value + 1"
 		/>
 	</div>

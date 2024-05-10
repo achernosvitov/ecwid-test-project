@@ -10,7 +10,12 @@ import { useCart } from './composables/cart/cart'
 const cart = useCart()
 
 async function initApp(): Promise<void> {
+	console.log('load start')
+	
 	await cart.loadCart()
+
+	console.log('load end')
+	
 }
 
 onBeforeMount(initApp)

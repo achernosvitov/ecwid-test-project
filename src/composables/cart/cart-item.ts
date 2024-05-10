@@ -12,14 +12,14 @@ import { useCart } from '@/composables/cart/cart'
 export function useCartItem(cartItem: Ref<CartItem>) {
 	const cart = useCart()
 
-	const quantity = computed<number>({
+	const quantity = computed<number>(({
 		get(): number {
 			return cartItem.value.quantity
 		},
-		set(value = 0) {
+		set(value: number) {
 			cart.setItemQuantity(cartItem.value, value)
 		},
-	})
+	}))
 
 	const formattedSummaryPrice = computed<string>(() => {
 		const price = calculateCartItemPrice(cartItem.value)
@@ -36,6 +36,10 @@ export function useCartItem(cartItem: Ref<CartItem>) {
 		})
 	})
 
+	const isLoading = computed<boolean>(() => {
+		return cart.store.isLoading
+	})
+
 	async function setQuantity(quantity: number): Promise<void> {
 		await cart.setItemQuantity(cartItem.value, quantity)
 	}
@@ -48,6 +52,7 @@ export function useCartItem(cartItem: Ref<CartItem>) {
 		quantity,
 		formattedSummaryPrice,
 		selectedOptions,
+		isLoading,
 		setQuantity,
 		removeItem,
 	}

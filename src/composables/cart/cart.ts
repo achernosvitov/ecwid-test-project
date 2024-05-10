@@ -69,9 +69,13 @@ export function useCart() {
 	}
 
 	async function reset(): Promise<void> {
+		store.isLoading = true
+
 		await service.reset()
 
 		store.resetCart()
+
+		store.isLoading = false
 	}
 
 	return {

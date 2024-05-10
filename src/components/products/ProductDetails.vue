@@ -7,10 +7,15 @@ import ProductGallery from '@/components/products/ProductGallery.vue'
 import ProductOptions from '@/components/products/ProductOptions.vue'
 import type { Product } from '@/core/models/products/model'
 import { useProduct } from '@/composables/products/product'
+import { useCart } from '@/composables/cart/cart'
 
 const props = defineProps<{
 	product: Product
 }>()
+
+const {
+	store: cartStore,
+} = useCart()
 
 const {
 	cartItem,
@@ -118,6 +123,7 @@ const {
 							v-else
 							class="mb-4"
 							:disabled="isAddToCartDisabled"
+							:loading="cartStore.isLoading"
 							text="Add to cart"
 							size="large"
 							@click="addProductToCart"

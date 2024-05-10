@@ -18,6 +18,7 @@ const {
 	quantity,
 	formattedSummaryPrice,
 	selectedOptions,
+	isLoading,
 	removeItem,
 } = useCartItem(toRef(() => props.item))
 
@@ -31,14 +32,14 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 </script>
 
 <template>
-	<v-sheet class="d-flex align-center pa-4">
+	<v-sheet class="d-flex pa-4">
 		<v-img
 			class="flex-grow-0 mr-4"
 			:src="item.product.thumbnail.smallThumbnailUrl"
 			aspect-ratio="1"
 			rounded="lg"
-			width="80"
-			height="80"
+			width="100"
+			height="100"
 		>
 			<template #placeholder>
 				<div
@@ -48,7 +49,7 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 			</template>
 		</v-img>
 
-		<div class="flex-grow-1">
+		<div class="d-flex flex-column justify-space-between flex-grow-1">
 			<div>
 				<div class="text-subtitle-1">
 					{{ item.product.name }}
@@ -65,6 +66,8 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 				</div>
 			</div>
 
+			<v-spacer />
+
 			<div class="d-flex align-center">
 				<div class="text-subtitle-2 font-weight-bold">
 					{{ formattedSummaryPrice }}
@@ -76,7 +79,8 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 					v-model.number="quantity"
 					style="width: 135px"
 					:min="1"
-					:max="9999"
+					:max="2"
+					:disabled="isLoading"
 					density="compact"
 				/>
 
@@ -85,6 +89,8 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 					icon="mdi-trash-can"
 					variant="text"
 					density="comfortable"
+					color="error"
+					:disabled="isLoading"
 					@click="removeItem"
 				/>
 			</div>
