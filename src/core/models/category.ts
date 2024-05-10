@@ -25,7 +25,11 @@ export type Category = {
 	name: string
 	slug: string
 	productCount: number
+	/**
+	 * @format html
+	 */
 	description?: string
+	seoDescription?: string
 	thumbnail?: CategoryThumbnail
 	placeholder?: CategoryImagePlaceholderColor
 }

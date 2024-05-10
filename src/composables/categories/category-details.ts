@@ -1,10 +1,16 @@
-import type { Ref } from 'vue'
+import {
+	watch,
+	type Ref,
+} from 'vue'
+import { useRouter } from 'vue-router'
 
 import { useCategoriesService } from '@/core/composition/categories-service'
 import { useAsyncState } from '@/composables/async-state'
 import { isLeft } from '@/core/utils/either'
+import { setPageMeta } from '@/core/utils/meta'
 
 export function useCategoryDetails(categoryId: Ref<string>) {
+	const router = useRouter()
 	const service = useCategoriesService()
 
 	const {
@@ -20,6 +26,23 @@ export function useCategoryDetails(categoryId: Ref<string>) {
 		}
 
 		return response.right
+	})
+
+	watch(data, (value) =>{
+		if (!value) {
+			return
+		}
+
+		setPageMeta({
+			title: data.value?.name,
+			metaDescription: data.value?.seoDescription,
+		})
+	})
+
+	watch(error, async () => {
+		await router.replace({
+			path: '/404',
+		})
 	})
 
 	return {
