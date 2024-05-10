@@ -42,6 +42,8 @@ export function useCart() {
 	}
 	
 	async function addProduct(product: Product, options: SelectedProductOptions): Promise<void> {
+		await loadCart()
+
 		store.addProduct({
 			product,
 			options,
@@ -51,21 +53,29 @@ export function useCart() {
 	}
 
 	async function removeItem(item: CartItem): Promise<void> {
+		await loadCart()
+
 		store.removeItemById(item.id)
 
 		await setCart()
 	}
 
 	async function setItemQuantity(item: CartItem, quantity: number): Promise<void> {
+		await loadCart()
+
 		store.setItemQuantity(item.id, quantity)
 		
 		await setCart()
 	}
 
 	async function reset(): Promise<void> {
+		store.isLoading = true
+
 		await service.reset()
 
 		store.resetCart()
+
+		store.isLoading = false
 	}
 
 	return {

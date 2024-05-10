@@ -2,6 +2,15 @@
   "name": "ecwid-test-project",
   "version": "0.0.0",
   "private": true,
+	"browserslist": {
+    "production": [
+      "> 1%",
+      "not dead"
+    ],
+    "modern": [
+      "last 2 versions"
+    ]
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",

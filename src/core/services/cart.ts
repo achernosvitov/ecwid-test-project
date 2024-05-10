@@ -1,29 +1,33 @@
+import { fromSerializedCart } from '@/core/adapters/from-serialized-cart'
 import type { CartItem } from '@/core/models/cart'
 import {
-	makeLeft, type Either, makeRight, 
+	makeLeft,
+	type Either,
+	makeRight,
 } from '@/core/utils/either'
 
 export class CartService {
 	private readonly storageKey = 'ECWID_TEST_PROJECT_CART'
 
-	constructor(private readonly storage: Storage) {}
-
-	private parseString(value: string): CartItem[] {
-		return JSON.parse(value) as CartItem[]
-	}
+	constructor(private readonly storage: Storage) { }
 
 	async getCart(): Promise<Either<Error, CartItem[]>> {
-		try {
-			const value = this.storage.getItem(this.storageKey)
+		return new Promise<Either<Error, CartItem[]>>((resolve) => {
+			setTimeout(() => {
+				try {
+					const value = this.storage.getItem(this.storageKey)
 
-			if (!value) {
-				return makeRight([])
-			}
+					if (!value) {
+						return resolve(makeRight([]))
+					}
 
-			return makeRight(this.parseString(value))
-		} catch (error) {
-			return makeLeft(error as Error)
-		}
+					resolve(makeRight(fromSerializedCart(value)))
+				} catch (error) {
+					resolve(makeLeft(error as Error))
+				}
+			}, 100)
+		})
+
 	}
 
 	async setCart(items: CartItem[]): Promise<Either<Error, CartItem[]>> {
@@ -38,12 +42,17 @@ export class CartService {
 	}
 
 	async reset(): Promise<Either<Error, boolean>> {
-		try {
-			await this.storage.removeItem(this.storageKey)
-
-			return makeRight(true)
-		} catch (error) {
-			return makeLeft(error as Error)
-		}
+		return new Promise<Either<Error, boolean>>((resolve) => {
+			setTimeout(() => {
+				try {
+					this.storage.removeItem(this.storageKey)
+		
+					resolve(makeRight(true))
+				} catch (error) {
+					resolve(makeLeft(error as Error))
+				}
+			}, 500)
+		})
+		
 	}
 }

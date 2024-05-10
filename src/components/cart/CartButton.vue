@@ -24,5 +24,6 @@ const cart = useCart()
 		to="/cart"
 		icon="mdi-cart"
 		rounded="circle"
+		variant="text"
 	/>
 </template>

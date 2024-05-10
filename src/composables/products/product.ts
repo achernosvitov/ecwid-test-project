@@ -54,6 +54,15 @@ export function useProduct(product: Ref<Product>) {
 		}) ?? null
 	})
 
+	const cartItemQuantity = computed({
+		get(): number {
+			return cartItem.value?.quantity ?? 0
+		},
+		set(value: number): void {
+			setCartItemQuantity(value)
+		},
+	})
+
 	const formattedPrice = computed<string>(() => {
 		return formatPrice(product.value.price)
 	})
@@ -87,6 +96,7 @@ export function useProduct(product: Ref<Product>) {
 		productVariant,
 		isAddToCartDisabled,
 		cartItem,
+		cartItemQuantity,
 		formattedPrice,
 		description,
 		setOptionValue,

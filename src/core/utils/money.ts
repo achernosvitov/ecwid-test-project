@@ -10,18 +10,23 @@ import { CURRENCY_DICTIONARY } from '../dictionaries/currency'
 
 import type { Money } from '@/core/models/money'
 
-export function formatPrice(price: Money): string {
+export function formatPrice(price: Money, locale = 'ru-RU'): string {
 	const d = dinero({
 		...price,
 		amount: price.amount,
 	})
 
 	return toDecimal(d, function({
-		value, currency,
+		value,
+		currency,
 	}) {
-		const label = CURRENCY_DICTIONARY[currency.code].label
+		const formatter = new Intl.NumberFormat(locale, {
+			style: 'currency',
+			currency: currency.code,
+			currencyDisplay: 'code',
+		})
 
-		return `${value} ${label ?? currency.code}`
+		return formatter.format(Number(value)).replace(currency.code, CURRENCY_DICTIONARY[currency.code].label)
 	})
 }
 

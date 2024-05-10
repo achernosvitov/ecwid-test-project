@@ -7,19 +7,25 @@ import ProductGallery from '@/components/products/ProductGallery.vue'
 import ProductOptions from '@/components/products/ProductOptions.vue'
 import type { Product } from '@/core/models/products/model'
 import { useProduct } from '@/composables/products/product'
+import { useCart } from '@/composables/cart/cart'
+import InputCount from '@/components/InputCount.vue'
 
 const props = defineProps<{
 	product: Product
 }>()
 
 const {
+	store: cartStore,
+} = useCart()
+
+const {
 	cartItem,
 	selectedOptions,
 	isAddToCartDisabled,
+	cartItemQuantity,
 	formattedPrice,
 	description,
 	setOptionValue,
-	setCartItemQuantity,
 	addProductToCart,
 } = useProduct(toRef(() => props.product))
 </script>
@@ -76,52 +82,43 @@ const {
 						</div>
 
 						<v-card
-							v-if="cartItem"
-							style="width: 240px"
-							class="mb-4"
+							class="mb-4 w-100 w-sm-50"
 						>
 							<v-card-item>
-								<v-card-subtitle>
+								<template v-if="cartItem">
+									<InputCount
+										v-model.number="cartItemQuantity"
+										class="mb-4 mx-auto"
+										style="width: 180px"
+										:min="0"
+										:max="9999"
+										:disabled="cartStore.isLoading"
+										density="compact"
+									/>
+
 									<v-btn
+										:disabled="isAddToCartDisabled"
+										:loading="cartStore.isLoading"
+										text="Go to cart"
+										size="large"
+										color="success"
 										to="/cart"
-										text="Proceed to cart"
-										variant="text"
-										size="x-small"
+										block
 									/>
-								</v-card-subtitle>
+								</template>
 
-								<div class="d-flex">
-									<v-btn
-										icon="mdi-minus"
-										variant="plain"
-										@click="() => setCartItemQuantity(cartItem!.quantity - 1)"
-									/>
-
-									<v-text-field
-										v-model="cartItem.quantity"
-										class="ml-2 mr-2"
-										density="comfortable"
-										type="number"
-										variant="outlined"
-										hide-details
-									/>
-
-									<v-btn
-										icon="mdi-plus"
-										variant="plain"
-										@click="() => setCartItemQuantity(cartItem!.quantity + 1)"
-									/>
-								</div>
+								<v-btn
+									v-else
+									:disabled="isAddToCartDisabled"
+									:loading="cartStore.isLoading"
+									text="Add to cart"
+									size="large"
+									color="success"
+									block
+									@click="addProductToCart"
+								/>
 							</v-card-item>
 						</v-card>
-						<v-btn
-							v-else
-							class="mb-4"
-							:disabled="isAddToCartDisabled"
-							text="Add to cart"
-							size="large"
-							@click="addProductToCart"
-						/>
 					</template>
 
 					<template v-if="description">
