@@ -1,41 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import { useCart } from '@/composables/cart/cart'
-
-const {
-	store,
-	reset,
-} = useCart()
-
-const shouldShowPopup = ref(false)
-
-async function placeOrder(): Promise<void> {
-	await reset()
-	console.log('reset')
-
-	shouldShowPopup.value = true
-}
+const show = defineModel({
+	type: Boolean,
+	required: true,
+})
 </script>
 
 <template>
-	<v-btn
-		variant="elevated"
-		size="large"
-		color="success"
-		block
-		:loading="store.isLoading"
-		@click="placeOrder"
-	>
-		<v-icon
-			icon="mdi-check-circle"
-			start
-		/>
-		Place Order
-	</v-btn>
-
 	<v-dialog
-		v-model="shouldShowPopup"
+		v-model="show"
 		max-width="500"
 	>
 		<v-sheet
@@ -78,7 +50,7 @@ async function placeOrder(): Promise<void> {
 					color="success"
 					variant="flat"
 					width="90"
-					@click="shouldShowPopup = false"
+					@click="show = false"
 				>
 					Done
 				</v-btn>

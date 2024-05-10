@@ -36,12 +36,6 @@ module.exports = {
 				],
 				extensions: ['.ts', '.vue'],
 			},
-			'compat': {
-				'polyfills': [
-					'promises',
-					'Promise',
-				],
-			},
 		},
 	},
 	rules: {
