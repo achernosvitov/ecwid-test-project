@@ -7,14 +7,17 @@ defineProps<{
 </script>
 
 <template>
-	<v-carousel>
+	<v-carousel
+		hide-delimiters
+		height="100%"
+	>
 		<v-carousel-item
 			v-for="image in images"
 			:key="image.id"
+			aspect-ratio="1"
 		>
 			<v-img
 				:src="image.image800pxUrl"
-				aspect-ratio="1"
 			/>
 		</v-carousel-item>
 	</v-carousel>

@@ -20,17 +20,18 @@ onBeforeMount(loadNextPage)
 		<v-row justify="center">
 			<template v-if="isLoading">
 				<v-col
-					v-for="(card, index) in new Array(2).fill(null)"
-					:key="index"
+					v-for="key in [1, 2]"
+					:key="key"
 					cols="12"
 					sm="6"
 					md="4"
 					lg="3"
 				>
-					<v-skeleton-loader
-						class="h-100"
-						ratio="1"
-					/>
+					<v-responsive aspect-ratio="1">
+						<v-skeleton-loader
+							class="h-100"
+						/>
+					</v-responsive>
 				</v-col>
 			</template>
 

@@ -27,16 +27,21 @@ export function useProductDetails(productId: Ref<string>) {
 		return response.right
 	})
 
-	watch(data, (value) =>{
-		if (!value) {
-			return
-		}
+	watch(
+		data, 
+		(value) =>{
+			if (!value) {
+				return
+			}
 
-		setPageMeta({
-			title: data.value?.name,
-			metaDescription: data.value?.seoDescription,
-		})
-	})
+			setPageMeta({
+				title: data.value?.name,
+				metaDescription: data.value?.seoDescription,
+			})
+		}, {
+			deep: true,
+		},
+	)
 
 	watch(error, async () => {
 		await router.replace({
