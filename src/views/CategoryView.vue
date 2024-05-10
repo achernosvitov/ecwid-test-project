@@ -17,6 +17,7 @@ const props = defineProps<{
 
 const {
 	data: category,
+	isLoading,
 	loadData: loadCategory,
 } = useCategoryDetails(toRef(() => getCategoryIdFromSlug(props.slug)))
 
@@ -35,8 +36,13 @@ onBeforeMount(initData)
 
 <template>
 	<v-container>
+		<v-skeleton-loader
+			v-if="isLoading"
+			height="300px"
+			elevation="1"
+		/>
 		<CategoryCard
-			v-if="category"
+			v-else-if="category"
 			class="mb-4"
 			style="height: 300px;"
 			:category="category"
