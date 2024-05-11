@@ -61,7 +61,7 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 			<v-btn
 				block
 				variant="flat"
-				text="Buy"
+				text="Купить"
 			/>
 		</v-card-actions>
 	</v-card>
