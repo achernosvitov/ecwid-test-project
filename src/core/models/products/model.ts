@@ -75,10 +75,11 @@ export type Product = {
 	price: Money
 	media: ProductMedia
 	thumbnail: ProductThumbnail
-	description?: string
 	/**
 	 * @format html
 	 */
+	description?: string
+	seoDescription?: string
 	options?: ProductOption[]
 	placeholder?: ImagePlaceholderColor
 }

@@ -11,19 +11,33 @@ const props = defineProps<{
 	filters?: GetProductListRequest
 }>()
 
-const productList = useProductList()
+const {
+	pages,
+	filters: storeFilters,
+	isLoading,
+	loadFirstPage,
+} = useProductList()
 
 onBeforeMount(async () => {
 	if (props.filters) {
-		productList.filters.value = props.filters 
+		storeFilters.value = props.filters 
 	}
 	
-	await productList.loadFirstPage()
+	await loadFirstPage()
 })
 
 watch(
 	() => props.filters,
-	async () => await productList.loadFirstPage(),
+	async (value) => {
+		if (value) {
+			storeFilters.value = value
+		}
+		
+		await loadFirstPage()
+	},
+	{
+		deep: true,
+	},
 )
 </script>
 
@@ -33,8 +47,24 @@ watch(
 			justify="center"
 			align-content="stretch"
 		>
+			<template v-if="isLoading">
+				<v-col
+					v-for="key in [1, 2, 3, 4]"
+					:key="key"
+					cols="12"
+					sm="6"
+					md="4"
+					lg="3"
+				>
+					<v-skeleton-loader
+						type="image, article"
+					/>
+				</v-col>
+			</template>
+
 			<template
-				v-for="(page, index) in productList.pages.value"
+				v-for="(page, index) in pages"
+				v-else
 				:key="index"
 			>
 				<v-col

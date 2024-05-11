@@ -46,7 +46,7 @@ async function placeOrder(): Promise<void> {
 					</div>
 
 					<p>
-						Your shopping cart is currently empty. Feel free to browse our products and add items to your cart on <router-link
+						Your shopping cart is empty. Feel free to browse our products and add items to your cart on <router-link
 							class="text-decoration-none text-info"
 							to="/"
 						>
