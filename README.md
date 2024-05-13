@@ -1,39 +1,24 @@
 # ecwid-test-project
 
-This template should help get you started developing with Vue 3 in Vite.
+This project was developed as part of a frontend developer test assignment. It implements the following functionalities as described in the [test assignment](https://github.com/Ecwid/new-job/blob/master/TypeScript.md):
+- Home page with products and product categories
+- Category page
+- Product page
+- Cart page
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+## Installation Instructions
+1. Clone the repository
+2. Install required dependencies by `npm install` command
+3. Create a `.env` file in the project root and provide next variables from test assigment:
 ```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
+VITE_ECWID_API_BASE_URL
+VITE_ECWID_API_PUBLIC_TOKEN
+VITE_ECWID_API_STORE_ID
 ```
+4. Run project in production mode using `npm run build` command or run it in development mode by `npm run dev`
 
-### Type-Check, Compile and Minify for Production
+## Notes
+Initially UI was designed in English, but since API with provided credentials responds with products in Russian, texts were translated to Russian too.
 
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+## Author
+Aleksandr Chernosvitov

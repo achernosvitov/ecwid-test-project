@@ -17,10 +17,9 @@ import type {
 } from '@/core/models/dto/products/search-products'
 
 export class EcwidApi {
-	private readonly baseUrl = 'https://app.ecwid.com/'
-	// @TODO: it's better to store these data in environment variables
-	private storeId = '58958138'
-	private token = 'public_7BxbJGWyDaZfSQqjVS5Ftr4jzXkS43UD'
+	private readonly baseUrl = import.meta.env.VITE_ECWID_API_BASE_URL
+	private readonly storeId = import.meta.env.VITE_ECWID_API_STORE_ID
+	private readonly token = import.meta.env.VITE_ECWID_API_PUBLIC_TOKEN
 		
 	constructor(private readonly http: IHttpClient) {}
 
