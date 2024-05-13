@@ -35,7 +35,37 @@ async function placeOrder(): Promise<void> {
 
 <template>
 	<v-container>
-		<v-row v-if="store.itemCount === 0">
+		<v-row v-if="store.isLoading && store.itemCount === 0">
+			<v-col
+				cols="12"
+				md="8"
+			>
+				<v-skeleton-loader
+					class="mb-4"
+					type="list-item-avatar-three-line"
+				/>
+				<v-skeleton-loader
+					class="mb-4"
+					type="list-item-avatar-three-line"
+				/>
+				<v-skeleton-loader
+					class="mb-4"
+					type="list-item-avatar-three-line"
+				/>
+			</v-col>
+
+			<v-col
+				cols="12"
+				md="4"
+			>
+				<v-skeleton-loader
+					class="mb-4"
+					type="card"
+				/>
+			</v-col>
+		</v-row>
+
+		<v-row v-else-if="store.itemCount === 0">
 			<v-col cols="12">
 				<v-sheet
 					class="pa-4"
@@ -65,7 +95,7 @@ async function placeOrder(): Promise<void> {
 				<v-card>
 					<v-card-item>
 						<h1 class="mb-2 text-h5">
-							Cart
+							Корзина
 						</h1>
 
 						<template

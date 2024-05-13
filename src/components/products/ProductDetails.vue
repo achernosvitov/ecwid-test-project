@@ -94,7 +94,7 @@ const {
 										style="width: 180px"
 										:min="0"
 										:max="9999"
-										:disabled="cartStore.isLoading"
+										:loading="cartStore.isLoading"
 										density="compact"
 									/>
 
