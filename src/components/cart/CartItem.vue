@@ -80,7 +80,7 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 					style="width: 135px"
 					:min="1"
 					:max="9999"
-					:disabled="isLoading"
+					:loading="isLoading"
 					density="compact"
 				/>
 

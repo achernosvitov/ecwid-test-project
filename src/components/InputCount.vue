@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 const props = defineProps<{
 	min?: number
 	max?: number
 	density?: 'default' | 'comfortable' | 'compact'
 	disabled?: boolean
+	loading?: boolean
 }>()
 
 const value = defineModel({
@@ -21,6 +24,18 @@ const value = defineModel({
 		return newValue
 	},
 })
+
+const decrementDisabled = computed<boolean>(() => {
+	return props.loading
+		|| props.disabled
+		|| (props.min !== undefined && value.value <= props.min)
+})
+
+const incrementDisabled = computed<boolean>(() => {
+	return props.loading
+		|| props.disabled
+		|| (props.max !== undefined && value.value >= props.max)
+})
 </script>
 
 <template>
@@ -29,7 +44,7 @@ const value = defineModel({
 			icon="mdi-minus"
 			variant="plain"
 			:density="density"
-			:disabled="disabled"
+			:disabled="decrementDisabled"
 			@click="() => value = value - 1"
 		/>
 
@@ -46,7 +61,7 @@ const value = defineModel({
 			icon="mdi-plus"
 			variant="plain"
 			:density="density"
-			:disabled="disabled"
+			:disabled="incrementDisabled"
 			@click="() => value = value + 1"
 		/>
 	</div>
