@@ -66,7 +66,7 @@ const {
 					</div>
 
 					<div class="text-h6 font-weight-bold mb-2">
-						Options
+						Параметры
 					</div>
 
 					<ProductOptions
@@ -80,7 +80,7 @@ const {
 
 					<template v-if="product.stock.inStock">
 						<div class="text-h6 mb-2">
-							In stock
+							В наличии
 						</div>
 
 						<v-card
@@ -101,7 +101,7 @@ const {
 									<v-btn
 										:disabled="isAddToCartDisabled"
 										:loading="cartStore.isLoading"
-										text="Go to cart"
+										text="Перейти в корзину"
 										size="large"
 										color="success"
 										to="/cart"
@@ -113,7 +113,7 @@ const {
 									v-else
 									:disabled="isAddToCartDisabled"
 									:loading="cartStore.isLoading"
-									text="Add to cart"
+									text="Добавить в корзину"
 									size="large"
 									color="success"
 									block
@@ -125,7 +125,7 @@ const {
 
 					<template v-if="description">
 						<div class="text-h6 font-weight-bold mb-2">
-							Description
+							Описание
 						</div>
 						<!-- eslint-disable-next-line vue/no-v-html -->
 						<div v-html="description" />

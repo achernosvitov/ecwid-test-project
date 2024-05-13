@@ -54,7 +54,7 @@ const placeholderBackground = computed<StyleValue | undefined>(() => {
 				</v-card-title>
 
 				<v-card-subtitle v-if="category.productCount && category.productCount > 0">
-					{{ category.productCount }} Product{{ category.productCount > 1 ? 's' : '' }}
+					Товары: {{ category.productCount }}
 				</v-card-subtitle>
 			</v-card-item>
 		</v-img>

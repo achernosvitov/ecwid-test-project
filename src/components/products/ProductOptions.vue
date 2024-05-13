@@ -26,6 +26,6 @@ const emit = defineEmits<{
 		@change="(value) => emit('change', value)"
 	/>
 	<div v-else>
-		{{ options.name }}: this option type is not supported yet.
+		{{ options.name }}: Тип параметра не поддерживается.
 	</div>
 </template>

@@ -42,15 +42,15 @@ async function placeOrder(): Promise<void> {
 					rounded
 				>
 					<div class="mb-2 text-h5">
-						Your Cart is Empty
+						Ваша корзина пуста
 					</div>
 
 					<p>
-						Your shopping cart is empty. Feel free to browse our products and add items to your cart on <router-link
+						Приглашаем вас ознакомиться с нашим ассортиментом на <router-link
 							class="text-decoration-none text-info"
 							to="/"
 						>
-							the homepage.
+							главной странице.
 						</router-link>
 					</p>
 				</v-sheet>
@@ -92,13 +92,13 @@ async function placeOrder(): Promise<void> {
 			>
 				<v-card>
 					<v-card-title class="mb-2 text-h5">
-						Order Summary
+						Заказ
 					</v-card-title>
 
 					<v-card-text>
 						<div class="my-2 d-flex justify-space-between align-center">
 							<div class="text-medium-emphasis">
-								Tax
+								Налог
 							</div>
 
 							<div class="font-weight-bold text-success">
@@ -107,7 +107,7 @@ async function placeOrder(): Promise<void> {
 						</div>
 						<div class="my-2 d-flex justify-space-between align-center">
 							<div class="text-medium-emphasis">
-								Delivery
+								Доставка
 							</div>
 
 							<div class="font-weight-bold text-success">
@@ -119,7 +119,7 @@ async function placeOrder(): Promise<void> {
 
 						<div class="d-flex justify-space-between align-center">
 							<div class="text-medium-emphasis">
-								Total
+								Итого
 							</div>
 
 							<div class="text-h6">
@@ -141,7 +141,7 @@ async function placeOrder(): Promise<void> {
 								icon="mdi-check-circle"
 								start
 							/>
-							Place Order
+							Оформить заказ
 						</v-btn>
 					</v-card-actions>
 				</v-card>

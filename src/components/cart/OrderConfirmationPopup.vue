@@ -25,34 +25,33 @@ const show = defineModel({
 			/>
 
 			<h2 class="text-h5 mb-6">
-				Thank You for Your Order!
+				Спасибо за ваш заказ!
 			</h2>
 
 			<p class="mb-4 text-medium-emphasis text-body-2">
-				Congratulations on your successful purchase! Your order has been successfully placed.
-				We appreciate your choice of our store.
+				Поздравляем с успешной покупкой! Ваш заказ был успешно размещен. Мы благодарим вас за выбор нашего магазина.
 			</p>
 
 			<p class="mb-4 text-medium-emphasis text-body-2">
-				To continue shopping or explore more products, please <router-link
+				Чтобы продолжить покупки или посмотреть другие товары, пожалуйста, <router-link
 					class="text-decoration-none text-info"
 					to="/"
 				>
-					navigate back to the homepage.
+					перейдите на главную страницу.
 				</router-link>
 			</p>
 
 			<v-divider class="mb-4" />
 
-			<div class="text-end">
+			<div class="text-center">
 				<v-btn
 					class="text-none"
 					color="success"
 					variant="flat"
-					width="90"
+					width="120"
 					@click="show = false"
 				>
-					Done
+					Закрыть
 				</v-btn>
 			</div>
 		</v-sheet>
